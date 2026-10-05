@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regina D. Wright | Author</title>
+<meta name="description" content="Official author page for Regina D. Wright â warm, heartfelt contemporary romance and family fiction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --burgundy:     #7B1C3E;
+    --burgundy-dk:  #5A1430;
+    --burgundy-lt:  #9C2450;
+    --gold:         #C9A535;
+    --gold-lt:      #E2BE56;
+    --gold-dk:      #A8881C;
+    --cream:        #FAF6F0;
+    --white:        #FFFFFF;
+    --text:         #2C1A1A;
+    --text-muted:   #6B4F4F;
+    --border:       #E8D5C4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ââ HEADER ââ */
+  header {
+    background: var(--burgundy);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 50%, rgba(201,165,53,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(201,165,53,0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 64px 32px 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .gold-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  header h1 em {
+    color: var(--gold-lt);
+    font-style: normal;
+  }
+
+  .tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.04em;
+    margin-bottom: 36px;
+  }
+
+  .header-cta {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--burgundy-dk);
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .header-cta:hover {
+    background: var(--gold-lt);
+    transform: translateY(-1px);
+  }
+
+  /* ââ NAV ââ */
+  nav {
+    background: var(--burgundy-dk);
+    border-bottom: 2px solid var(--gold-dk);
+  }
+
+  nav ul {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+    list-style: none;
+    display: flex;
+    gap: 0;
+    justify-content: center;
+  }
+
+  nav a {
+    display: block;
+    padding: 14px 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--gold-lt); }
+
+  /* ââ SECTIONS ââ */
+  section {
+    padding: 72px 32px;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 600;
+    color: var(--burgundy);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+
+  .section-divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 40px;
+  }
+
+  /* ââ ABOUT ââ */
+  #about {
+    background: var(--cream);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .about-portrait {
+    aspect-ratio: 3/4;
+    background: var(--border);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 24px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-portrait::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid var(--gold);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-bottom: 18px;
+    line-height: 1.8;
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+
+  /* ââ SERIES / BOOKS ââ */
+  #books { background: var(--white); }
+
+  .series-block {
+    margin-bottom: 64px;
+  }
+
+  .series-block:last-child { margin-bottom: 0; }
+
+  .series-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--burgundy);
+    margin-bottom: 6px;
+  }
+
+  .series-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+  }
+
+  .book-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+
+  .book-card:hover {
+    box-shadow: 0 6px 24px rgba(123,28,62,0.12);
+    transform: translateY(-3px);
+  }
+
+  .book-cover {
+    aspect-ratio: 2/3;
+    background: linear-gradient(145deg, var(--burgundy) 0%, var(--burgundy-dk) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .book-cover::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(201,165,53,0.12), transparent);
+  }
+
+  .book-cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.25;
+    position: relative;
+    z-index: 1;
+  }
+
+  .book-cover-title em {
+    display: block;
+    font-size: 0.7rem;
+    font-style: normal;
+    color: var(--gold-lt);
+    font-weight: 400;
+    margin-bottom: 4px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .book-card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .book-number {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+    margin-bottom: 4px;
+  }
+
+  .book-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--burgundy);
+    line-height: 1.3;
+    margin-bottom: 12px;
+    flex: 1;
+  }
+
+  .btn-amazon {
+    display: block;
+    text-align: center;
+    background: var(--burgundy);
+    color: var(--white);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 1px;
+    transition: background 0.2s;
+  }
+
+  .btn-amazon:hover { background: var(--burgundy-lt); }
+
+  /* ââ NEWSLETTER ââ */
+  #newsletter {
+    background: var(--burgundy);
+    text-align: center;
+  }
+
+  #newsletter .section-label { color: var(--gold-lt); }
+  #newsletter .section-title { color: var(--white); }
+  #newsletter .section-divider { margin-left: auto; margin-right: auto; }
+
+  .newsletter-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    max-width: 540px;
+    margin: 0 auto 36px;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+
+  .newsletter-form input[type="email"] {
+    flex: 1;
+    padding: 14px 18px;
+    border: none;
+    font-size: 0.95rem;
+    font-family: 'Lato', sans-serif;
+    outline: none;
+    background: var(--white);
+    color: var(--text);
+  }
+
+  .newsletter-form button {
+    background: var(--gold);
+    color: var(--burgundy-dk);
+    border: none;
+    padding: 14px 24px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .newsletter-form button:hover { background: var(--gold-lt); }
+
+  .newsletter-note {
+    margin-top: 14px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ââ CONNECT ââ */
+  #connect {
+    background: var(--cream);
+    text-align: center;
+  }
+
+  .connect-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .connect-btn {
+    display: inline-block;
+    padding: 11px 26px;
+    border: 2px solid var(--burgundy);
+    border-radius: 2px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .connect-btn:hover {
+    background: var(--burgundy);
+    color: var(--white);
+  }
+
+  /* ââ FOOTER ââ */
+  footer {
+    background: var(--burgundy-dk);
+    padding: 32px;
+    text-align: center;
+    border-top: 2px solid var(--gold-dk);
+  }
+
+  footer p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+  }
+
+  footer a {
+    color: var(--gold-lt);
+    text-decoration: none;
+  }
+
+  /* ââ RESPONSIVE ââ */
+  @media (max-width: 700px) {
+    section { padding: 52px 20px; }
+    header { padding: 0; }
+    .header-inner { padding: 48px 20px 40px; }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .about-portrait {
+      aspect-ratio: 4/3;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    nav ul { flex-wrap: wrap; justify-content: center; }
+    nav a { padding: 10px 14px; font-size: 0.72rem; }
+
+    .newsletter-form {
+      flex-direction: column;
+      border-radius: 2px;
+    }
+
+    .newsletter-form input[type="email"],
+    .newsletter-form button {
+      border-radius: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<!-- ââ HEADER ââ -->
+<header>
+  <div class="header-inner">
+    <div class="gold-rule"></div>
+    <h1>Regina D. <em>Wright</em></h1>
+    <p class="tagline">Stories of family, love, and coming home</p>
+    <a href="#books" class="header-cta">Browse the Books</a>
+  </div>
+</header>
+<!-- ââ NAV ââ -->
+<nav>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#books">Books</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+<!-- ââ ABOUT ââ -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-portrait">
+        <span>Author photo<br>coming soon</span>
+      </div>
+      <div class="about-text">
+        <p class="section-label">About the Author</p>
+        <h2 class="section-title">Welcome to my corner of the world.</h2>
+        <div class="section-divider"></div>
+        <p>I'm Regina D. Wright, and I write stories about the messy, beautiful, deeply human work of loving each other â through kitchens that smell like Sunday dinner, bleachers on a Friday night, and front porches where the truth always comes out eventually.</p>
+        <p>My books are rooted in community, family bonds, and the kind of slow-burn love that sneaks up on you between the second helpings and the extra innings. If you believe in found family, second chances, and the redemptive power of a really good meal â you're in the right place.</p>
+        <p>Pull up a chair. Stay a while.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ââ BOOKS ââ -->
+<section id="books">
+  <div class="section-inner">
+    <p class="section-label">My Books</p>
+    <h2 class="section-title">Find Your Next Favorite Series</h2>
+    <div class="section-divider"></div>
+    <div class="series-block">
+      <h3 class="series-title">The Marigold Brothers</h3>
+      <p class="series-desc">Four brothers. One restaurant. The women who make them work for it.</p>
+      <div class="books-grid">
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJRQRB7B" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Marigold Brothers Â· 1</em>Save Room</div></div><div class="book-card-body"><div class="book-number">Book 1</div><div class="book-card-title">Save Room</div><span class="btn-amazon">Read on Amazon</span></div></a>
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJSX8R2C" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Marigold Brothers Â· 2</em>Made From Scratch</div></div><div class="book-card-body"><div class="book-number">Book 2</div><div class="book-card-title">Made From Scratch</div><span class="btn-amazon">Read on Amazon</span></div></a>
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJT784MY" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Marigold Brothers Â· 3</em>Come Hungry</div></div><div class="book-card-body"><div class="book-number">Book 3</div><div class="book-card-title">Come Hungry</div><span class="btn-amazon">Read on Amazon</span></div></a>
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJSPQBQH" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Marigold Brothers Â· 4</em>Second Helpings</div></div><div class="book-card-body"><div class="book-number">Book 4</div><div class="book-card-title">Second Helpings</div><span class="btn-amazon">Read on Amazon</span></div></a>
+      </div>
+    </div>
+    <div class="series-block">
+      <h3 class="series-title">The Tolliver Swifts</h3>
+      <p class="series-desc">A baseball family with four sons, four games to win, and hearts that don't know when to quit.</p>
+      <div class="books-grid">
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJY4C92C" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Tolliver Swifts Â· 1</em>The Long Game</div></div><div class="book-card-body"><div class="book-number">Book 1</div><div class="book-card-title">The Long Game</div><span class="btn-amazon">Read on Amazon</span></div></a>
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJYPKCBN" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Tolliver Swifts Â· 2</em>Caught Looking</div></div><div class="book-card-body"><div class="book-number">Book 2</div><div class="book-card-title">Caught Looking</div><span class="btn-amazon">Read on Amazon</span></div></a>
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJY8PG2P" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Tolliver Swifts Â· 3</em>Home Field</div></div><div class="book-card-body"><div class="book-number">Book 3</div><div class="book-card-title">Home Field</div><span class="btn-amazon">Read on Amazon</span></div></a>
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJYTT4S5" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Tolliver Swifts Â· 4</em>Safe at Home</div></div><div class="book-card-body"><div class="book-number">Book 4</div><div class="book-card-title">Safe at Home</div><span class="btn-amazon">Read on Amazon</span></div></a>
+      </div>
+    </div>
+    <div class="series-block">
+      <h3 class="series-title">The Men of Cauble Holler</h3>
+      <p class="series-desc">Down in the holler, loyalty runs deep and love runs deeper.</p>
+      <div class="books-grid" style="max-width: 260px;">
+        <a class="book-card" href="https://www.amazon.com/dp/B0HKQ3J838" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Cauble Holler Â· 1</em>Hold The Line</div></div><div class="book-card-body"><div class="book-number">Book 1</div><div class="book-card-title">Hold The Line</div><span class="btn-amazon">Read on Amazon</span></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ââ NEWSLETTER ââ -->
+<section id="newsletter">
+  <div class="section-inner">
+    <p class="section-label">Stay in Touch</p>
+    <h2 class="section-title">Join the Reader Family</h2>
+    <div class="section-divider"></div>
+    <p class="newsletter-sub">New releases, cover reveals, and little notes from me â no clutter, just the good stuff. Join the family and never miss what's coming next.</p>
+    <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+      <input type="email" id="email-input" placeholder="Your email address" required autocomplete="email">
+      <button type="submit">Subscribe</button>
+    </form>
+    <p class="newsletter-note" id="newsletter-msg">No spam. Unsubscribe any time.</p>
+  </div>
+</section>
+<!-- ââ CONNECT ââ -->
+<section id="connect">
+  <div class="section-inner">
+    <p class="section-label">Find Me</p>
+    <h2 class="section-title">Let's Connect</h2>
+    <div class="section-divider" style="margin-left:auto;margin-right:auto;"></div>
+    <p style="color:var(--text-muted);max-width:480px;margin:0 auto 32px;text-align:center;">I love hearing from readers. Find me on social or send a note â I read everything.</p>
+    <div class="connect-links">
+      <a href="https://www.amazon.com/stores/Regina-D.-Wright/author/B0HJR7TGPF" target="_blank" rel="noopener" class="connect-btn">Amazon Author Page</a>
+      <a href="https://www.goodreads.com" target="_blank" rel="noopener" class="connect-btn">Goodreads</a>
+      <a href="https://www.facebook.com" target="_blank" rel="noopener" class="connect-btn">Facebook</a>
+      <a href="https://www.bookbub.com" target="_blank" rel="noopener" class="connect-btn">BookBub</a>
+    </div>
+  </div>
+</section>
+<footer>
+  <p>
+    &copy; <span id="yr"></span> Regina D. Wright &nbsp;|&nbsp; All rights reserved<br>
+    <span style="font-size:0.72rem;">This site contains affiliate links. As an Amazon Associate I earn from qualifying purchases.</span>
+  </p>
+</footer>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  function handleSubscribe(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value.trim();
+    if (!email) return;
+    document.getElementById('newsletter-msg').textContent = 'Thank you! Check your inbox to confirm.';
+    document.getElementById('email-input').value = '';
+    document.getElementById('email-input').disabled = true;
+    e.target.querySelector('button').disabled = true;
+    e.target.querySelector('button').textContent = 'Done!';
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>

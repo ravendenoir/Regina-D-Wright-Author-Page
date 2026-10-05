@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Regina D. Wright | Author</title>
-<meta name="description" content="Official author page for Regina D. Wright â warm, heartfelt contemporary romance and family fiction.">
+<meta name="description" content="Official author page for Regina D. Wright — warm, heartfelt contemporary romance and family fiction.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -32,7 +32,7 @@
     line-height: 1.7;
   }
 
-  /* ââ HEADER ââ */
+  /* ── HEADER ── */
   header {
     background: var(--burgundy);
     padding: 0;
@@ -113,7 +113,7 @@
     transform: translateY(-1px);
   }
 
-  /* ââ NAV ââ */
+  /* ── NAV ── */
   nav {
     background: var(--burgundy-dk);
     border-bottom: 2px solid var(--gold-dk);
@@ -143,7 +143,7 @@
 
   nav a:hover { color: var(--gold-lt); }
 
-  /* ââ SECTIONS ââ */
+  /* ── SECTIONS ── */
   section {
     padding: 72px 32px;
   }
@@ -178,7 +178,7 @@
     margin-bottom: 40px;
   }
 
-  /* ââ ABOUT ââ */
+  /* ── ABOUT ── */
   #about {
     background: var(--cream);
   }
@@ -226,7 +226,7 @@
 
   .about-text p:last-child { margin-bottom: 0; }
 
-  /* ââ SERIES / BOOKS ââ */
+  /* ── SERIES / BOOKS ── */
   #books { background: var(--white); }
 
   .series-block {
@@ -275,41 +275,21 @@
   .book-cover {
     aspect-ratio: 2/3;
     background: linear-gradient(145deg, var(--burgundy) 0%, var(--burgundy-dk) 100%);
-    display: flex;
-    align-items: flex-end;
-    padding: 16px;
     position: relative;
     overflow: hidden;
   }
 
-  .book-cover::before {
-    content: '';
+  .book-cover img {
     position: absolute;
-    top: 0; right: 0;
-    width: 50%;
+    inset: 0;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(to left, rgba(201,165,53,0.12), transparent);
+    object-fit: cover;
+    display: block;
   }
 
   .book-cover-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.25;
-    position: relative;
-    z-index: 1;
-  }
-
-  .book-cover-title em {
-    display: block;
-    font-size: 0.7rem;
-    font-style: normal;
-    color: var(--gold-lt);
-    font-weight: 400;
-    margin-bottom: 4px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    display: none;
   }
 
   .book-card-body {
@@ -355,7 +335,7 @@
 
   .btn-amazon:hover { background: var(--burgundy-lt); }
 
-  /* ââ NEWSLETTER ââ */
+  /* ── NEWSLETTER ── */
   #newsletter {
     background: var(--burgundy);
     text-align: center;
@@ -416,7 +396,7 @@
     color: rgba(255,255,255,0.45);
   }
 
-  /* ââ CONNECT ââ */
+  /* ── CONNECT ── */
   #connect {
     background: var(--cream);
     text-align: center;
@@ -449,7 +429,7 @@
     color: var(--white);
   }
 
-  /* ââ FOOTER ââ */
+  /* ── FOOTER ── */
   footer {
     background: var(--burgundy-dk);
     padding: 32px;
@@ -468,7 +448,7 @@
     text-decoration: none;
   }
 
-  /* ââ RESPONSIVE ââ */
+  /* ── RESPONSIVE ── */
   @media (max-width: 700px) {
     section { padding: 52px 20px; }
     header { padding: 0; }
@@ -501,7 +481,8 @@
 </style>
 </head>
 <body>
-<!-- ââ HEADER ââ -->
+
+<!-- ── HEADER ── -->
 <header>
   <div class="header-inner">
     <div class="gold-rule"></div>
@@ -510,7 +491,8 @@
     <a href="#books" class="header-cta">Browse the Books</a>
   </div>
 </header>
-<!-- ââ NAV ââ -->
+
+<!-- ── NAV ── -->
 <nav>
   <ul>
     <li><a href="#about">About</a></li>
@@ -519,7 +501,8 @@
     <li><a href="#connect">Connect</a></li>
   </ul>
 </nav>
-<!-- ââ ABOUT ââ -->
+
+<!-- ── ABOUT ── -->
 <section id="about">
   <div class="section-inner">
     <div class="about-grid">
@@ -530,55 +513,157 @@
         <p class="section-label">About the Author</p>
         <h2 class="section-title">Welcome to my corner of the world.</h2>
         <div class="section-divider"></div>
-        <p>I'm Regina D. Wright, and I write stories about the messy, beautiful, deeply human work of loving each other â through kitchens that smell like Sunday dinner, bleachers on a Friday night, and front porches where the truth always comes out eventually.</p>
-        <p>My books are rooted in community, family bonds, and the kind of slow-burn love that sneaks up on you between the second helpings and the extra innings. If you believe in found family, second chances, and the redemptive power of a really good meal â you're in the right place.</p>
+        <p>I'm Regina D. Wright, and I write stories about the messy, beautiful, deeply human work of loving each other — through kitchens that smell like Sunday dinner, bleachers on a Friday night, and front porches where the truth always comes out eventually.</p>
+        <p>My books are rooted in community, family bonds, and the kind of slow-burn love that sneaks up on you between the second helpings and the extra innings. If you believe in found family, second chances, and the redemptive power of a really good meal — you're in the right place.</p>
         <p>Pull up a chair. Stay a while.</p>
       </div>
     </div>
   </div>
 </section>
-<!-- ââ BOOKS ââ -->
+
+<!-- ── BOOKS ── -->
 <section id="books">
   <div class="section-inner">
     <p class="section-label">My Books</p>
     <h2 class="section-title">Find Your Next Favorite Series</h2>
     <div class="section-divider"></div>
+
+    <!-- The Marigold Brothers -->
     <div class="series-block">
       <h3 class="series-title">The Marigold Brothers</h3>
       <p class="series-desc">Four brothers. One restaurant. The women who make them work for it.</p>
       <div class="books-grid">
-        <a class="book-card" href="https://www.amazon.com/dp/B0HJRQRB7B" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Marigold Brothers Â· 1</em>Save Room</div></div><div class="book-card-body"><div class="book-number">Book 1</div><div class="book-card-title">Save Room</div><span class="btn-amazon">Read on Amazon</span></div></a>
-        <a class="book-card" href="https://www.amazon.com/dp/B0HJSX8R2C" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Marigold Brothers Â· 2</em>Made From Scratch</div></div><div class="book-card-body"><div class="book-number">Book 2</div><div class="book-card-title">Made From Scratch</div><span class="btn-amazon">Read on Amazon</span></div></a>
-        <a class="book-card" href="https://www.amazon.com/dp/B0HJT784MY" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Marigold Brothers Â· 3</em>Come Hungry</div></div><div class="book-card-body"><div class="book-number">Book 3</div><div class="book-card-title">Come Hungry</div><span class="btn-amazon">Read on Amazon</span></div></a>
-        <a class="book-card" href="https://www.amazon.com/dp/B0HJSPQBQH" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Marigold Brothers Â· 4</em>Second Helpings</div></div><div class="book-card-body"><div class="book-number">Book 4</div><div class="book-card-title">Second Helpings</div><span class="btn-amazon">Read on Amazon</span></div></a>
+
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJRQRB7B" target="_blank" rel="noopener">
+          <div class="book-cover">
+            <img src="https://m.media-amazon.com/images/P/B0HJRQRB7B.01._SX300_.jpg" alt="Save Room cover" loading="lazy">
+          </div>
+          <div class="book-card-body">
+            <div class="book-number">Book 1</div>
+            <div class="book-card-title">Save Room</div>
+            <span class="btn-amazon">Read on Amazon</span>
+          </div>
+        </a>
+
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJSX8R2C" target="_blank" rel="noopener">
+          <div class="book-cover">
+            <img src="https://m.media-amazon.com/images/P/B0HJSX8R2C.01._SX300_.jpg" alt="Made From Scratch cover" loading="lazy">
+          </div>
+          <div class="book-card-body">
+            <div class="book-number">Book 2</div>
+            <div class="book-card-title">Made From Scratch</div>
+            <span class="btn-amazon">Read on Amazon</span>
+          </div>
+        </a>
+
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJT784MY" target="_blank" rel="noopener">
+          <div class="book-cover">
+            <img src="https://m.media-amazon.com/images/P/B0HJT784MY.01._SX300_.jpg" alt="Come Hungry cover" loading="lazy">
+          </div>
+          <div class="book-card-body">
+            <div class="book-number">Book 3</div>
+            <div class="book-card-title">Come Hungry</div>
+            <span class="btn-amazon">Read on Amazon</span>
+          </div>
+        </a>
+
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJSPQBQH" target="_blank" rel="noopener">
+          <div class="book-cover">
+            <img src="https://m.media-amazon.com/images/P/B0HJSPQBQH.01._SX300_.jpg" alt="Second Helpings cover" loading="lazy">
+          </div>
+          <div class="book-card-body">
+            <div class="book-number">Book 4</div>
+            <div class="book-card-title">Second Helpings</div>
+            <span class="btn-amazon">Read on Amazon</span>
+          </div>
+        </a>
+
       </div>
     </div>
+
+    <!-- The Tolliver Swifts -->
     <div class="series-block">
       <h3 class="series-title">The Tolliver Swifts</h3>
       <p class="series-desc">A baseball family with four sons, four games to win, and hearts that don't know when to quit.</p>
       <div class="books-grid">
-        <a class="book-card" href="https://www.amazon.com/dp/B0HJY4C92C" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Tolliver Swifts Â· 1</em>The Long Game</div></div><div class="book-card-body"><div class="book-number">Book 1</div><div class="book-card-title">The Long Game</div><span class="btn-amazon">Read on Amazon</span></div></a>
-        <a class="book-card" href="https://www.amazon.com/dp/B0HJYPKCBN" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Tolliver Swifts Â· 2</em>Caught Looking</div></div><div class="book-card-body"><div class="book-number">Book 2</div><div class="book-card-title">Caught Looking</div><span class="btn-amazon">Read on Amazon</span></div></a>
-        <a class="book-card" href="https://www.amazon.com/dp/B0HJY8PG2P" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Tolliver Swifts Â· 3</em>Home Field</div></div><div class="book-card-body"><div class="book-number">Book 3</div><div class="book-card-title">Home Field</div><span class="btn-amazon">Read on Amazon</span></div></a>
-        <a class="book-card" href="https://www.amazon.com/dp/B0HJYTT4S5" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Tolliver Swifts Â· 4</em>Safe at Home</div></div><div class="book-card-body"><div class="book-number">Book 4</div><div class="book-card-title">Safe at Home</div><span class="btn-amazon">Read on Amazon</span></div></a>
+
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJY4C92C" target="_blank" rel="noopener">
+          <div class="book-cover">
+            <img src="https://m.media-amazon.com/images/P/B0HJY4C92C.01._SX300_.jpg" alt="The Long Game cover" loading="lazy">
+          </div>
+          <div class="book-card-body">
+            <div class="book-number">Book 1</div>
+            <div class="book-card-title">The Long Game</div>
+            <span class="btn-amazon">Read on Amazon</span>
+          </div>
+        </a>
+
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJYPKCBN" target="_blank" rel="noopener">
+          <div class="book-cover">
+            <img src="https://m.media-amazon.com/images/P/B0HJYPKCBN.01._SX300_.jpg" alt="Caught Looking cover" loading="lazy">
+          </div>
+          <div class="book-card-body">
+            <div class="book-number">Book 2</div>
+            <div class="book-card-title">Caught Looking</div>
+            <span class="btn-amazon">Read on Amazon</span>
+          </div>
+        </a>
+
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJY8PG2P" target="_blank" rel="noopener">
+          <div class="book-cover">
+            <img src="https://m.media-amazon.com/images/P/B0HJY8PG2P.01._SX300_.jpg" alt="Home Field cover" loading="lazy">
+          </div>
+          <div class="book-card-body">
+            <div class="book-number">Book 3</div>
+            <div class="book-card-title">Home Field</div>
+            <span class="btn-amazon">Read on Amazon</span>
+          </div>
+        </a>
+
+        <a class="book-card" href="https://www.amazon.com/dp/B0HJYTT4S5" target="_blank" rel="noopener">
+          <div class="book-cover">
+            <img src="https://m.media-amazon.com/images/P/B0HJYTT4S5.01._SX300_.jpg" alt="Safe at Home cover" loading="lazy">
+          </div>
+          <div class="book-card-body">
+            <div class="book-number">Book 4</div>
+            <div class="book-card-title">Safe at Home</div>
+            <span class="btn-amazon">Read on Amazon</span>
+          </div>
+        </a>
+
       </div>
     </div>
+
+    <!-- The Men of Cauble Holler -->
     <div class="series-block">
       <h3 class="series-title">The Men of Cauble Holler</h3>
       <p class="series-desc">Down in the holler, loyalty runs deep and love runs deeper.</p>
       <div class="books-grid" style="max-width: 260px;">
-        <a class="book-card" href="https://www.amazon.com/dp/B0HKQ3J838" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-title"><em>Cauble Holler Â· 1</em>Hold The Line</div></div><div class="book-card-body"><div class="book-number">Book 1</div><div class="book-card-title">Hold The Line</div><span class="btn-amazon">Read on Amazon</span></div></a>
+
+        <a class="book-card" href="https://www.amazon.com/dp/B0HKQ3J838" target="_blank" rel="noopener">
+          <div class="book-cover">
+            <img src="https://m.media-amazon.com/images/P/B0HKQ3J838.01._SX300_.jpg" alt="Hold The Line cover" loading="lazy">
+          </div>
+          <div class="book-card-body">
+            <div class="book-number">Book 1</div>
+            <div class="book-card-title">Hold The Line</div>
+            <span class="btn-amazon">Read on Amazon</span>
+          </div>
+        </a>
+
       </div>
     </div>
+
   </div>
 </section>
-<!-- ââ NEWSLETTER ââ -->
+
+<!-- ── NEWSLETTER ── -->
 <section id="newsletter">
   <div class="section-inner">
     <p class="section-label">Stay in Touch</p>
     <h2 class="section-title">Join the Reader Family</h2>
     <div class="section-divider"></div>
-    <p class="newsletter-sub">New releases, cover reveals, and little notes from me â no clutter, just the good stuff. Join the family and never miss what's coming next.</p>
+    <p class="newsletter-sub">New releases, cover reveals, and little notes from me — no clutter, just the good stuff. Join the family and never miss what's coming next.</p>
     <form class="newsletter-form" onsubmit="handleSubscribe(event)">
       <input type="email" id="email-input" placeholder="Your email address" required autocomplete="email">
       <button type="submit">Subscribe</button>
@@ -586,13 +671,14 @@
     <p class="newsletter-note" id="newsletter-msg">No spam. Unsubscribe any time.</p>
   </div>
 </section>
-<!-- ââ CONNECT ââ -->
+
+<!-- ── CONNECT ── -->
 <section id="connect">
   <div class="section-inner">
     <p class="section-label">Find Me</p>
     <h2 class="section-title">Let's Connect</h2>
     <div class="section-divider" style="margin-left:auto;margin-right:auto;"></div>
-    <p style="color:var(--text-muted);max-width:480px;margin:0 auto 32px;text-align:center;">I love hearing from readers. Find me on social or send a note â I read everything.</p>
+    <p style="color:var(--text-muted);max-width:480px;margin:0 auto 32px;text-align:center;">I love hearing from readers. Find me on social or send a note — I read everything.</p>
     <div class="connect-links">
       <a href="https://www.amazon.com/stores/Regina-D.-Wright/author/B0HJR7TGPF" target="_blank" rel="noopener" class="connect-btn">Amazon Author Page</a>
       <a href="https://www.goodreads.com" target="_blank" rel="noopener" class="connect-btn">Goodreads</a>
@@ -601,14 +687,18 @@
     </div>
   </div>
 </section>
+
+<!-- ── FOOTER ── -->
 <footer>
   <p>
     &copy; <span id="yr"></span> Regina D. Wright &nbsp;|&nbsp; All rights reserved<br>
     <span style="font-size:0.72rem;">This site contains affiliate links. As an Amazon Associate I earn from qualifying purchases.</span>
   </p>
 </footer>
+
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
   function handleSubscribe(e) {
     e.preventDefault();
     const email = document.getElementById('email-input').value.trim();
@@ -619,12 +709,18 @@
     e.target.querySelector('button').disabled = true;
     e.target.querySelector('button').textContent = 'Done!';
   }
+
+  // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 </script>
+
 </body>
 </html>

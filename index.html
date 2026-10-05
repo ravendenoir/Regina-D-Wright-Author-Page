@@ -546,11 +546,24 @@
 
   .newsletter-success {
     display: none;
+    text-align: center;
+    padding: 32px 16px;
+  }
+  .newsletter-success .success-icon {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+  }
+  .newsletter-success .success-heading {
     font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .newsletter-success .success-body {
+    font-size: 1rem;
     color: var(--blush-lt);
-    margin-top: 8px;
+    font-style: italic;
   }
 
   /* ── CONNECT ── */
@@ -851,7 +864,11 @@
     </form>
 
     <p class="newsletter-note" id="newsletter-note">No spam. Unsubscribe any time.</p>
-    <p class="newsletter-success" id="newsletter-success">Welcome to the family! Check your inbox. &#x1F49C;</p>
+    <div class="newsletter-success" id="newsletter-success">
+      <div class="success-icon">&#x1F49C;</div>
+      <div class="success-heading">You're in the family!</div>
+      <div class="success-body">Thank you for subscribing. Check your inbox for a welcome note from Regina.</div>
+    </div>
   </div>
 </section>
 
@@ -902,6 +919,7 @@
       if (response.ok) {
         form.style.display = 'none';
         note.style.display = 'none';
+        document.querySelector('.newsletter-sub').style.display = 'none';
         success.style.display = 'block';
       } else {
         btn.disabled = false;

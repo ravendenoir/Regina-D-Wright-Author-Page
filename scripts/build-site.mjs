@@ -220,7 +220,7 @@ const splitHtml = `<section id="coming-soon" class="split">
     </div>
     <div class="split-col blog-col" id="blog">
       <div class="split-head"><p class="section-label">From the Blog</p><h2 class="section-title">Notes from Regina</h2><div class="section-divider"></div></div>
-      ${posts.length ? `<div class="post-rows">${posts.slice(0, 3).map(postRow).join('')}</div>
+      ${posts.length ? `<div class="post-rows">${posts.slice(0, 3).map(postRow).join('')}</div>${posts.length < 3 ? '<div class="blog-nudge">More notes from Marigold, Tolliver and Cauble Holler are on the way.<br><a class="link-more" href="/#newsletter">Get them in your inbox &rarr;</a></div>' : ''}
       <p class="split-more"><a class="link-more" href="/blog/">Read the blog &rarr;</a></p>` : blogEmpty}
     </div>
   </div>

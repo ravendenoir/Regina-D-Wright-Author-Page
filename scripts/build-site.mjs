@@ -188,7 +188,7 @@ const reviewsHtml = reviews.length ? `<section id="reviews" class="reviews">
     <div class="rv" data-count="${reviews.length}">
 ${reviews.map((r, i) => `      <figure class="rv-slide"${i ? ' hidden' : ''}>
         <img src="${esc(r.img)}" alt="Reader review${r.title ? ' of ' + esc(r.title) : ''}" loading="lazy">
-        ${r.title || r.buy ? `<figcaption>${r.title ? `<span class="rv-book">${r.book ? `<a href="${r.book.url}">${esc(r.title)}</a>` : esc(r.title)}</span>` : ''}${r.buy ? `<a class="btn-solid" href="${esc(r.buy)}" target="_blank" rel="noopener">Read on Amazon</a>` : ''}</figcaption>` : ''}
+        ${r.buy ? `<figcaption><a class="btn-solid" href="${esc(r.buy)}" target="_blank" rel="noopener">${r.book && !r.book.released ? 'Pre-Order on Amazon' : 'Read on Amazon'}</a></figcaption>` : ''}
       </figure>`).join('\n')}
 ${reviews.length > 1 ? `      <div class="rv-nav"><button type="button" class="rv-arr" data-step="-1" aria-label="Previous review">&lsaquo;</button><span class="rv-count" aria-live="polite">1 of ${reviews.length}</span><button type="button" class="rv-arr" data-step="1" aria-label="Next review">&rsaquo;</button></div>` : ''}
     </div>

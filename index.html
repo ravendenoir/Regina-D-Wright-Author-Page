@@ -38,7 +38,7 @@
   </div>
 </div>
 
-<nav aria-label="Main"><ul><li><a href="/" aria-current="page">Home</a></li><li><a href="/books/">Books</a></li><li><a href="/books/#series">Series</a></li><li><a href="/#coming-soon">Coming Soon</a></li><li><a href="/#reviews">Reviews</a></li><li><a href="/#about">About</a></li><li><a href="/#newsletter">Newsletter</a></li></ul></nav>
+<nav aria-label="Main"><ul><li><a href="/" aria-current="page">Home</a></li><li><a href="/books/">Books</a></li><li><a href="/books/#series">Series</a></li><li><a href="/#coming-soon">Coming Soon</a></li><li><a href="/#reviews">Reviews</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#about">About</a></li><li><a href="/#newsletter">Newsletter</a></li></ul></nav>
 
 <section class="featured" id="featured">
   <div class="section-inner featured-grid">
@@ -116,7 +116,17 @@
 </section>
 <script>(function(){var w=document.querySelector('.rv');if(!w)return;var s=w.querySelectorAll('.rv-slide'),c=w.querySelector('.rv-count'),i=0;w.querySelectorAll('.rv-arr').forEach(function(b){b.addEventListener('click',function(){s[i].hidden=true;i=(i+Number(b.dataset.step)+s.length)%s.length;s[i].hidden=false;if(c)c.textContent=(i+1)+' of '+s.length;});});})();</script>
 
-
+<section id="blog" class="blog-home">
+  <div class="section-inner">
+    <div style="text-align:center">
+      <p class="section-label">From the Blog</p>
+      <h2 class="section-title">Notes from Regina</h2>
+      <div class="section-divider" style="margin-left:auto;margin-right:auto"></div>
+    </div>
+    <div class="blog-empty"><p>The first post is on its way: news from Marigold, Tolliver and Cauble Holler, release updates and the stories behind the books.</p><a class="btn-line" href="/#newsletter">Get it in your inbox</a></div>
+    
+  </div>
+</section>
 
 <section id="about">
   <div class="section-inner">
@@ -187,7 +197,7 @@
 </section>
 
 <footer>
-  <div class="site-footer-nav"><a href="/">Home</a><a href="/books/">All Books</a><a href="/#newsletter">Newsletter</a><a href="https://www.amazon.com/stores/Regina-D.-Wright/author/B0HJR7TGPF" target="_blank" rel="noopener">Amazon</a></div>
+  <div class="site-footer-nav"><a href="/">Home</a><a href="/books/">All Books</a><a href="/blog/">Blog</a><a href="/#newsletter">Newsletter</a><a href="https://www.amazon.com/stores/Regina-D.-Wright/author/B0HJR7TGPF" target="_blank" rel="noopener">Amazon</a></div>
   <p>
     &copy; <span id="yr"></span> Regina D. Wright &nbsp;|&nbsp; All rights reserved<br>
     <span style="font-size:0.72rem;">This site contains affiliate links. As an Amazon Associate I earn from qualifying purchases.</span>

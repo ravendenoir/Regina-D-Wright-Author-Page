@@ -75,19 +75,19 @@ const posts = (fs.existsSync(POSTS_DIR) ? fs.readdirSync(POSTS_DIR) : []).filter
 const person = { '@type': 'Person', name: AUTHOR, url: SITE + '/', ...(amazon(socials.amazon) ? { sameAs: [socials.amazon] } : {}) };
 
 // ---------- layout ----------
-const NAV = [['/', 'Home', 'home'], ['/books/', 'Books', 'books'], ['/books/#series', 'Series', 'series'], ['/#coming-soon', 'Coming Soon', ''], ...((data.reviews || []).some((r) => r.screenshotBase64 || r.screenshotUrl) ? [['/#reviews', 'Reviews', '']] : []), ...(posts.length ? [['/blog/', 'Blog', 'blog']] : []), ['/#about', 'About', ''], ['/#newsletter', 'Newsletter', '']];
+const NAV = [['/', 'Home', 'home'], ['/books/', 'Books', 'books'], ['/books/#series', 'Series', 'series'], ['/#coming-soon', 'Coming Soon', ''], ...((data.reviews || []).some((r) => r.screenshotBase64 || r.screenshotUrl) ? [['/#reviews', 'Reviews', '']] : []), ['/blog/', 'Blog', 'blog'], ['/#about', 'About', ''], ['/#newsletter', 'Newsletter', '']];
 const nav = (current) => `<nav aria-label="Main"><ul>${NAV.map(([h, l, k]) => `<li><a href="${h}"${k && k === current ? ' aria-current="page"' : ''}>${l}</a></li>`).join('')}</ul></nav>`;
 const SOCIAL_LABELS = { amazon: 'Amazon Author Page', goodreads: 'Goodreads', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', patreon: 'Patreon', discord: 'Discord' };
 const socialLinks = Object.keys(SOCIAL_LABELS).filter((k) => /^https?:\/\/[^/]+\/.+/.test(socials[k] || ''));
 
-const head = ({ title, description, canonical, image, jsonld = [], type = 'website' }) => `<!DOCTYPE html>
+const head = ({ title, description, canonical, image, jsonld = [], type = 'website', noindex = false }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<link rel="canonical" href="${SITE}${canonical}">
+<link rel="canonical" href="${SITE}${canonical}">${noindex ? '\n<meta name="robots" content="noindex">' : ''}
 <meta property="og:type" content="${type}">
 <meta property="og:site_name" content="${AUTHOR}">
 <meta property="og:title" content="${esc(title)}">
@@ -105,7 +105,7 @@ ${jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify({ '@con
 <body>
 `;
 const FOOTER = `<footer>
-  <div class="site-footer-nav"><a href="/">Home</a><a href="/books/">All Books</a>${posts.length ? '<a href="/blog/">Blog</a>' : ''}<a href="/#newsletter">Newsletter</a>${amazon(socials.amazon) ? `<a href="${esc(socials.amazon)}" target="_blank" rel="noopener">Amazon</a>` : ''}</div>
+  <div class="site-footer-nav"><a href="/">Home</a><a href="/books/">All Books</a><a href="/blog/">Blog</a><a href="/#newsletter">Newsletter</a>${amazon(socials.amazon) ? `<a href="${esc(socials.amazon)}" target="_blank" rel="noopener">Amazon</a>` : ''}</div>
   <p>
     &copy; <span id="yr"></span> Regina D. Wright &nbsp;|&nbsp; All rights reserved<br>
     <span style="font-size:0.72rem;">This site contains affiliate links. As an Amazon Associate I earn from qualifying purchases.</span>
@@ -197,17 +197,18 @@ ${reviews.length > 1 ? `      <div class="rv-nav"><button type="button" class="r
 <script>(function(){var w=document.querySelector('.rv');if(!w)return;var s=w.querySelectorAll('.rv-slide'),c=w.querySelector('.rv-count'),i=0;w.querySelectorAll('.rv-arr').forEach(function(b){b.addEventListener('click',function(){s[i].hidden=true;i=(i+Number(b.dataset.step)+s.length)%s.length;s[i].hidden=false;if(c)c.textContent=(i+1)+' of '+s.length;});});})();</script>` : '';
 
 const postCard = (p) => `<a class="post-card" href="${p.url}">${p.cover ? `<span class="pc-img"><img src="${esc(p.cover)}" alt="" loading="lazy"></span>` : ''}<span class="pc-body"><span class="pc-date">${esc(fmt(p.date))}</span><span class="pc-title">${esc(p.title)}</span><span class="pc-ex">${esc(p.excerpt)}</span><span class="link-more">Read more &rarr;</span></span></a>`;
-const blogHomeHtml = posts.length ? `<section id="blog" class="blog-home">
+const blogEmpty = `<div class="blog-empty"><p>The first post is on its way: news from Marigold, Tolliver and Cauble Holler, release updates and the stories behind the books.</p><a class="btn-line" href="/#newsletter">Get it in your inbox</a></div>`;
+const blogHomeHtml = `<section id="blog" class="blog-home">
   <div class="section-inner">
     <div style="text-align:center">
       <p class="section-label">From the Blog</p>
       <h2 class="section-title">Notes from Regina</h2>
       <div class="section-divider" style="margin-left:auto;margin-right:auto"></div>
     </div>
-    <div class="post-list">${posts.slice(0, 3).map(postCard).join('')}</div>
+    ${posts.length ? `<div class="post-list">${posts.slice(0, 3).map(postCard).join('')}</div>` : blogEmpty}
     ${posts.length > 3 ? '<p style="text-align:center;margin-top:32px"><a class="btn-line" href="/blog/">All Posts</a></p>' : ''}
   </div>
-</section>` : '';
+</section>`;
 
 const aboutHtml = `<section id="about">
   <div class="section-inner">
@@ -365,18 +366,18 @@ for (const b of books) {
 
 // ---------- /blog/ ----------
 fs.rmSync(path.join(ROOT, 'blog'), { recursive: true, force: true });
-if (posts.length) {
+{
   write('blog/index.html', inner({
     title: 'Blog | Regina D. Wright',
     description: 'News, release updates and behind-the-book notes from Regina D. Wright, author of sweet, closed-door BWWM small-town romance.',
-    canonical: '/blog/', image: posts.find((p) => p.cover)?.cover,
+    canonical: '/blog/', image: posts.find((p) => p.cover)?.cover, noindex: !posts.length,
     jsonld: [{ '@type': 'Blog', name: 'Regina D. Wright Blog', url: SITE + '/blog/', author: person,
       blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.title, url: SITE + p.url, datePublished: p.date })) }]
   }, 'blog', `<main class="page">
   <p class="crumbs"><a href="/">Home</a> / Blog</p>
   <h1>From the Blog</h1>
   <p class="lede">News, release updates and behind-the-book notes from Marigold, Tolliver and Cauble Holler.</p>
-  <div class="post-list">${posts.map(postCard).join('')}</div>
+  ${posts.length ? `<div class="post-list">${posts.map(postCard).join('')}</div>` : blogEmpty.replace('/#newsletter', '/#newsletter')}
 </main>`));
   for (const p of posts) {
     const book = p.bookId ? books.find((b) => b.id === p.bookId) : null;
@@ -398,8 +399,10 @@ if (posts.length) {
   ${more.length ? `<section class="post-more"><h2>More from the Blog</h2><div class="post-list">${more.map(postCard).join('')}</div></section>` : ''}
 </main>`));
   }
+  if (posts.length) {
   const x = (t) => esc(t).replace(/&#39;/g, "'");
   write('blog/feed.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>Regina D. Wright Blog</title><link>${SITE}/blog/</link><description>News and behind-the-book notes from Regina D. Wright</description>\n${posts.slice(0, 20).map((p) => `<item><title>${x(p.title)}</title><link>${SITE}${p.url}</link><guid>${SITE}${p.url}</guid><pubDate>${new Date(p.date + 'T12:00:00Z').toUTCString()}</pubDate><description>${x(p.excerpt)}</description></item>`).join('\n')}\n</channel></rss>\n`);
+  }
 }
 
 // ---------- clean up pages for removed books/series ----------

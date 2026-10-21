@@ -1,5 +1,5 @@
 // Small, safe Markdown renderer for blog posts. Blog Desk carries an identical copy for its preview.
-// Supports: ## / ### headings, paragraphs (single line breaks kept), **bold**, *italic*,
+// Supports: ## / ### headings (a line that is bold all the way through is also a heading), paragraphs (single line breaks kept), **bold**, *italic*,
 // [links](https://...), ![images](/images/blog/...), > quotes, - lists, 1. lists, --- dividers.
 export function md(src) {
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -15,6 +15,8 @@ export function md(src) {
     const lines = b.split('\n');
     if (/^#{1,3}\s/.test(b) && lines.length === 1) { const lvl = Math.max(2, b.match(/^#+/)[0].length); return `<h${lvl}>${inline(b.replace(/^#+\s*/, ''))}</h${lvl}>`; }
     if (/^(-{3,}|\*{3,})$/.test(b.trim())) return '<hr>';
+    const bold = /^\*\*([^*\n]+)\*\*$/.exec(b.trim());
+    if (bold) return `<h2>${inline(bold[1])}</h2>`;
     if (lines.every((l) => /^\s*[-*]\s+/.test(l))) return `<ul>${lines.map((l) => `<li>${inline(l.replace(/^\s*[-*]\s+/, ''))}</li>`).join('')}</ul>`;
     if (lines.every((l) => /^\s*\d+[.)]\s+/.test(l))) return `<ol>${lines.map((l) => `<li>${inline(l.replace(/^\s*\d+[.)]\s+/, ''))}</li>`).join('')}</ol>`;
     if (lines.every((l) => /^>\s?/.test(l))) return `<blockquote><p>${lines.map((l) => inline(l.replace(/^>\s?/, ''))).join('<br>')}</p></blockquote>`;

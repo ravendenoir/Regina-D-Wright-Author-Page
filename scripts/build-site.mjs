@@ -379,6 +379,9 @@ for (const b of books) {
 }
 
 // ---------- /blog/ ----------
+// A first line that just repeats the post title (bold or heading) is skipped.
+const norm = (t) => String(t).replace(/[*#_\s]+/g, ' ').trim().toLowerCase();
+const dropTitle = (body, title) => { const parts = String(body || '').replace(/\r\n?/g, '\n').split(/\n{2,}/); return parts.length > 1 && norm(parts[0]) === norm(title) ? parts.slice(1).join('\n\n') : body; };
 fs.rmSync(path.join(ROOT, 'blog'), { recursive: true, force: true });
 {
   write('blog/index.html', inner({
@@ -406,7 +409,7 @@ fs.rmSync(path.join(ROOT, 'blog'), { recursive: true, force: true });
     <p class="post-date"><time datetime="${p.date}">${esc(fmt(p.date))}</time></p>
     <h1>${esc(p.title)}</h1>
     ${p.cover ? `<img class="post-cover" src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}">` : ''}
-    <div class="post-body">${md(p.body)}</div>
+    <div class="post-body">${md(dropTitle(p.body, p.title))}</div>
   </article>
   ${book ? `<aside class="post-book"><a href="${book.url}"><img src="${esc(thumb(book.cover))}" alt="${esc(book.title)} by Regina D. Wright, book cover" width="400" height="640"></a><div><p class="section-label">The Book</p><h2><a href="${book.url}">${esc(book.title)}</a></h2><p class="series-line">${esc(seriesLine(book))} · ${book.released ? 'Available now' : 'Coming ' + esc(fmt(book.date))}</p>${amazon(book.amazonUrl) ? `<a class="btn-solid" href="${esc(book.amazonUrl)}" target="_blank" rel="noopener">${book.released ? 'Read on Amazon' : 'Pre-Order on Amazon'}</a>` : ''}</div></aside>` : ''}
   <p class="post-news">Want the next update in your inbox? <a href="/#newsletter">Join the newsletter &rarr;</a></p>

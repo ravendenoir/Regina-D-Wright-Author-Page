@@ -136,6 +136,9 @@ const released = books.filter((b) => b.released).sort((a, b) => (b.date || '').l
 const upcoming = books.filter((b) => !b.released).sort((a, b) => a.date.localeCompare(b.date));
 const featured = released.find((b) => b.isTopSeller) || released[0] || upcoming[0];
 const comingSoon = upcoming.filter((b) => b !== featured).slice(0, 3);
+// An author photo uploaded in the admin arrives as a data: URL; write it out as a real image file.
+{ const m = /^data:image\/(png|jpe?g|webp);base64,(.+)$/i.exec(profile.photoUrl || '');
+  if (m) { const ext = m[1].toLowerCase().replace('jpeg', 'jpg'); write(`assets/author-photo.${ext}`, Buffer.from(m[2], 'base64')); profile.photoUrl = `/assets/author-photo.${ext}`; } }
 const bioParas = String(profile.bio || '').replace(/\\n/g, '\n').split(/\n\n+/).map((x) => x.trim()).filter(Boolean);
 
 const featuredHtml = featured ? `<section class="featured" id="featured">

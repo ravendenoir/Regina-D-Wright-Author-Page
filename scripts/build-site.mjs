@@ -400,18 +400,27 @@ const norm = (t) => String(t).replace(/[*#_\s]+/g, ' ').trim().toLowerCase();
 const dropTitle = (body, title) => { const parts = String(body || '').replace(/\r\n?/g, '\n').split(/\n{2,}/); return parts.length > 1 && norm(parts[0]) === norm(title) ? parts.slice(1).join('\n\n') : body; };
 fs.rmSync(path.join(ROOT, 'blog'), { recursive: true, force: true });
 {
-  write('blog/index.html', inner({
-    title: 'Blog | Regina D. Wright',
-    description: 'News, release updates and behind-the-book notes from Regina D. Wright, author of sweet, closed-door BWWM small-town romance.',
-    canonical: '/blog/', image: posts.find((p) => p.cover)?.cover, noindex: !posts.length,
-    jsonld: [{ '@type': 'Blog', name: 'Regina D. Wright Blog', url: SITE + '/blog/', author: person,
-      blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.title, url: SITE + p.url, datePublished: p.date })) }]
-  }, 'blog', `<main class="page">
-  <p class="crumbs"><a href="/">Home</a> / Blog</p>
+  // The blog page shows 3 posts at a time, newest first; older posts move to /blog/page/2/, /blog/page/3/ …
+  const PER_PAGE = 3;
+  const pages = Math.max(1, Math.ceil(posts.length / PER_PAGE));
+  for (let n = 1; n <= pages; n++) {
+    const url = n === 1 ? '/blog/' : `/blog/page/${n}/`;
+    const slice = posts.slice((n - 1) * PER_PAGE, n * PER_PAGE);
+    const pager = pages > 1 ? `<nav class="pager" aria-label="More posts">${n > 1 ? `<a class="link-more" href="${n === 2 ? '/blog/' : `/blog/page/${n - 1}/`}">&larr; Newer posts</a>` : '<span></span>'}<span class="pager-n">Page ${n} of ${pages}</span>${n < pages ? `<a class="link-more" href="/blog/page/${n + 1}/">Older posts &rarr;</a>` : '<span></span>'}</nav>` : '';
+    write(url.slice(1) + 'index.html', inner({
+      title: n === 1 ? 'Blog | Regina D. Wright' : `Blog, page ${n} | Regina D. Wright`,
+      description: 'News, release updates and behind-the-book notes from Regina D. Wright, author of sweet, closed-door BWWM small-town romance.',
+      canonical: url, image: slice.find((p) => p.cover)?.cover, noindex: !posts.length,
+      jsonld: [{ '@type': 'Blog', name: 'Regina D. Wright Blog', url: SITE + '/blog/', author: person,
+        blogPost: slice.map((p) => ({ '@type': 'BlogPosting', headline: p.title, url: SITE + p.url, datePublished: p.date })) }]
+    }, 'blog', `<main class="page">
+  <p class="crumbs"><a href="/">Home</a> / ${n === 1 ? 'Blog' : `<a href="/blog/">Blog</a> / Page ${n}`}</p>
   <h1>From the Blog</h1>
-  <p class="lede">News, release updates and behind-the-book notes from Marigold, Tolliver and Cauble Holler.</p>
-  ${posts.length ? `<div class="post-list">${posts.map(postCard).join('')}</div>` : blogEmpty.replace('/#newsletter', '/#newsletter')}
+  ${n === 1 ? '<p class="lede">News, release updates and behind-the-book notes from Marigold, Tolliver and Cauble Holler.</p>' : ''}
+  ${slice.length ? `<div class="post-list">${slice.map(postCard).join('')}</div>` : blogEmpty}
+  ${pager}
 </main>`));
+  }
   for (const p of posts) {
     const book = p.bookId ? books.find((b) => b.id === p.bookId) : null;
     const more = posts.filter((x) => x !== p).slice(0, 2);
@@ -447,7 +456,7 @@ for (const dir of ['books', 'series']) {
 }
 
 // ---------- sitemap + robots ----------
-const urls = ['/', '/books/', ...seriesList.map((s) => s.url), ...books.map((b) => b.url), ...(posts.length ? ['/blog/', ...posts.map((p) => p.url)] : [])];
+const urls = ['/', '/books/', ...seriesList.map((s) => s.url), ...books.map((b) => b.url), ...(posts.length ? ['/blog/', ...Array.from({ length: Math.ceil(posts.length / 3) - 1 }, (_, i) => `/blog/page/${i + 2}/`), ...posts.map((p) => p.url)] : [])];
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${SITE}${u}</loc></url>`).join('\n')}\n</urlset>\n`);
 write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 console.log(`Built homepage, ${books.length} book pages, ${seriesList.length} series pages, /books/, ${posts.length} blog posts, sitemap (${urls.length} URLs).`);

@@ -1,0 +1,37 @@
+<!-- ── NEWSLETTER ── -->
+<section id="newsletter">
+  <div class="section-inner">
+    <p class="section-label">Stay in Touch</p>
+    <h2 class="section-title">Join the Reader Family</h2>
+    <div class="section-divider"></div>
+    <p class="newsletter-sub">New releases, cover reveals, and little notes from me — no clutter, just the good stuff. Join the family and never miss what's coming next.</p>
+
+    <form
+      name="regina-newsletter"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      id="newsletter-form"
+      onsubmit="handleSubscribe(event)"
+    >
+      <input type="hidden" name="form-name" value="regina-newsletter">
+      <p style="display:none;"><input name="bot-field"></p>
+
+      <div class="newsletter-fields">
+        <input type="text" name="name" placeholder="Your first name" autocomplete="given-name">
+        <input type="email" name="email" placeholder="Your email address" required autocomplete="email">
+      </div>
+      <div class="newsletter-submit-row">
+        <button type="submit" id="subscribe-btn">Subscribe — It's Free</button>
+      </div>
+    </form>
+
+    <p class="newsletter-note" id="newsletter-note">No spam. Unsubscribe any time.</p>
+    <div class="newsletter-success" id="newsletter-success">
+      <div class="success-icon">&#x1F49C;</div>
+      <div class="success-heading">You're in the family!</div>
+      <div class="success-body">Thank you for subscribing. Check your inbox for a welcome note from Regina.</div>
+    </div>
+  </div>
+</section>
+

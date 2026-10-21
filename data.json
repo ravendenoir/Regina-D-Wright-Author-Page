@@ -1,0 +1,163 @@
+{
+ "ctaButtons": [
+  {
+   "id": "cta1",
+   "label": "",
+   "url": ""
+  },
+  {
+   "id": "cta2",
+   "label": "",
+   "url": ""
+  },
+  {
+   "id": "cta3",
+   "label": "",
+   "url": ""
+  }
+ ],
+ "profile": {
+  "photoUrl": "https://reginadwright.com/assets/rdw-logo.png",
+  "brandLogoUrl": "",
+  "faviconUrl": "",
+  "socialShareImageUrl": "https://reginadwright.com/assets/banner.png",
+  "bio": "I'm Regina D. Wright, and I write stories about the messy, beautiful, deeply human work of loving each other — through kitchens that smell like Sunday dinner, bleachers on a Friday night, and front porches where the truth always comes out eventually.\n\nMy books are rooted in community, family bonds, and the kind of slow-burn love that sneaks up on you between the second helpings and the extra innings. If you believe in found family, second chances, and the redemptive power of a really good meal — you're in the right place.\n\nPull up a chair. Stay a while."
+ },
+ "socials": {
+  "newsletter": "",
+  "amazon": "https://www.amazon.com/stores/Regina-D.-Wright/author/B0HJR7TGPF",
+  "patreon": "",
+  "tiktok": "",
+  "instagram": "",
+  "facebook": "",
+  "discord": "",
+  "goodreads": ""
+ },
+ "comingSoon": [],
+ "authorSites": [],
+ "events": [],
+ "topSellers": [],
+ "kuFavorites": [],
+ "favoritesList": [],
+ "tbrList": [],
+ "leadMagnet": {
+  "enabled": false,
+  "headline": "",
+  "subtext": "",
+  "buttonText": "",
+  "buttonUrl": "",
+  "coverUrl": ""
+ },
+ "reviews": [],
+ "catalog": [
+  {
+   "id": "rdw-save-room",
+   "title": "Save Room",
+   "series": "The Marigold Brothers",
+   "seriesOrder": 1,
+   "publishDate": "2026-10-02",
+   "amazonUrl": "https://www.amazon.com/dp/B0HJRQRB7B",
+   "coverUrl": "https://reginadwright.com/images/save-room.jpg",
+   "isTopSeller": true,
+   "isKuFave": false,
+   "isComingSoon": false
+  },
+  {
+   "id": "rdw-made-from-scratch",
+   "title": "Made From Scratch",
+   "series": "The Marigold Brothers",
+   "seriesOrder": 2,
+   "publishDate": "2026-11-06",
+   "amazonUrl": "https://www.amazon.com/dp/B0HJSX8R2C",
+   "coverUrl": "https://reginadwright.com/images/made-from-scratch.jpg",
+   "isTopSeller": false,
+   "isKuFave": false,
+   "isComingSoon": true
+  },
+  {
+   "id": "rdw-come-hungry",
+   "title": "Come Hungry",
+   "series": "The Marigold Brothers",
+   "seriesOrder": 3,
+   "publishDate": "2026-12-04",
+   "amazonUrl": "https://www.amazon.com/dp/B0HJT784MY",
+   "coverUrl": "https://reginadwright.com/images/come-hungry.jpg",
+   "isTopSeller": false,
+   "isKuFave": false,
+   "isComingSoon": true
+  },
+  {
+   "id": "rdw-second-helpings",
+   "title": "Second Helpings",
+   "series": "The Marigold Brothers",
+   "seriesOrder": 4,
+   "publishDate": "2027-01-01",
+   "amazonUrl": "https://www.amazon.com/dp/B0HJSPQBQH",
+   "coverUrl": "https://reginadwright.com/images/second-helpings.jpg",
+   "isTopSeller": false,
+   "isKuFave": false,
+   "isComingSoon": true
+  },
+  {
+   "id": "rdw-the-long-game",
+   "title": "The Long Game",
+   "series": "The Tolliver Swifts",
+   "seriesOrder": 1,
+   "publishDate": "2027-02-05",
+   "amazonUrl": "https://www.amazon.com/dp/B0HJY4C92C",
+   "coverUrl": "https://reginadwright.com/images/the-long-game.jpg",
+   "isTopSeller": false,
+   "isKuFave": false,
+   "isComingSoon": true
+  },
+  {
+   "id": "rdw-caught-looking",
+   "title": "Caught Looking",
+   "series": "The Tolliver Swifts",
+   "seriesOrder": 2,
+   "publishDate": "2027-03-05",
+   "amazonUrl": "https://www.amazon.com/dp/B0HJYPKCBN",
+   "coverUrl": "https://reginadwright.com/images/caught-looking.jpg",
+   "isTopSeller": false,
+   "isKuFave": false,
+   "isComingSoon": true
+  },
+  {
+   "id": "rdw-home-field",
+   "title": "Home Field",
+   "series": "The Tolliver Swifts",
+   "seriesOrder": 3,
+   "publishDate": "2027-04-02",
+   "amazonUrl": "https://www.amazon.com/dp/B0HJY8PG2P",
+   "coverUrl": "https://reginadwright.com/images/home-field.jpg",
+   "isTopSeller": false,
+   "isKuFave": false,
+   "isComingSoon": true
+  },
+  {
+   "id": "rdw-safe-at-home",
+   "title": "Safe at Home",
+   "series": "The Tolliver Swifts",
+   "seriesOrder": 4,
+   "publishDate": "2027-05-07",
+   "amazonUrl": "https://www.amazon.com/dp/B0HJYTT4S5",
+   "coverUrl": "https://reginadwright.com/images/safe-at-home.jpg",
+   "isTopSeller": false,
+   "isKuFave": false,
+   "isComingSoon": true
+  },
+  {
+   "id": "rdw-hold-the-line",
+   "title": "Hold The Line",
+   "series": "The Men of Cauble Holler",
+   "seriesOrder": 1,
+   "publishDate": "2027-06-04",
+   "amazonUrl": "https://www.amazon.com/dp/B0HKQ3J838",
+   "coverUrl": "https://reginadwright.com/images/hold-the-line.jpg",
+   "isTopSeller": false,
+   "isKuFave": false,
+   "isComingSoon": true
+  }
+ ],
+ "latestNewsletter": ""
+}

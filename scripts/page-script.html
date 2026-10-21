@@ -1,0 +1,49 @@
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  async function handleSubscribe(e) {
+    e.preventDefault();
+    const form = document.getElementById('newsletter-form');
+    const btn = document.getElementById('subscribe-btn');
+    const note = document.getElementById('newsletter-note');
+    const success = document.getElementById('newsletter-success');
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    try {
+      const data = new FormData(form);
+      const response = await fetch('/.netlify/functions/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString()
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        note.style.display = 'none';
+        document.querySelector('.newsletter-sub').style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Subscribe — It\'s Free';
+        note.textContent = 'Something went wrong. Please try again.';
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Subscribe — It\'s Free';
+      note.textContent = 'Something went wrong. Please try again.';
+    }
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>

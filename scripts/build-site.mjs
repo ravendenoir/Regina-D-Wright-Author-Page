@@ -210,6 +210,22 @@ const blogHomeHtml = `<section id="blog" class="blog-home">
   </div>
 </section>`;
 
+const postRow = (p) => `<a class="post-row" href="${p.url}">${p.cover ? `<span class="pr-img"><img src="${esc(p.cover)}" alt="" loading="lazy"></span>` : ''}<span class="pr-body"><span class="pc-date">${esc(fmt(p.date))}</span><span class="pr-title">${esc(p.title)}</span><span class="pr-ex">${esc(snippet(p.excerpt, 110))}</span></span></a>`;
+const splitHtml = `<section id="coming-soon" class="split">
+  <div class="split-inner">
+    <div class="split-col cs-col">
+      <div class="split-head"><p class="section-label">On the Way</p><h2 class="section-title">Coming Soon</h2><div class="section-divider"></div></div>
+      ${comingSoon.length ? `<div class="cards">${comingSoon.map((b) => card(b).replace('</a>', `<span class="cd" data-release="${b.date}T00:00:00"></span></a>`)).join('')}</div>` : '<p class="muted-note">New release dates are announced in the newsletter first.</p>'}
+      <p class="split-more"><a class="link-more" href="/books/">See every book and release date &rarr;</a></p>
+    </div>
+    <div class="split-col blog-col" id="blog">
+      <div class="split-head"><p class="section-label">From the Blog</p><h2 class="section-title">Notes from Regina</h2><div class="section-divider"></div></div>
+      ${posts.length ? `<div class="post-rows">${posts.slice(0, 3).map(postRow).join('')}</div>
+      <p class="split-more"><a class="link-more" href="/blog/">Read the blog &rarr;</a></p>` : blogEmpty}
+    </div>
+  </div>
+</section>`;
+
 const aboutHtml = `<section id="about">
   <div class="section-inner">
     <div class="about-grid">
@@ -264,13 +280,11 @@ ${nav('home')}
 
 ${featuredHtml}
 
-${comingHtml}
+${splitHtml}
 
 ${seriesHtml}
 
 ${reviewsHtml}
-
-${blogHomeHtml}
 
 ${aboutHtml}
 

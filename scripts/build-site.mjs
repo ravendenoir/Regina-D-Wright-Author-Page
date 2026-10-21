@@ -12,6 +12,19 @@ const read = (f) => fs.readFileSync(path.join(ROOT, f), 'utf8');
 const write = (rel, content) => { const f = path.join(ROOT, rel); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, content); };
 
 const data = JSON.parse(read('data.json'));
+// ---------- safety net ----------
+// An admin copy that never loaded the live data can publish a data.json with no books, bio or links.
+// Keep a snapshot of the last good catalog/profile/socials and fall back to it for anything that arrives blank.
+const SNAP = 'content/site-snapshot.json';
+const snap = fs.existsSync(path.join(ROOT, SNAP)) ? JSON.parse(read(SNAP)) : null;
+if (snap) {
+  if (!(data.catalog || []).length && (snap.catalog || []).length) { console.warn('data.json has no books: using the last good catalog'); data.catalog = snap.catalog; }
+  for (const grp of ['profile', 'socials']) {
+    data[grp] = data[grp] || {};
+    for (const [k, v] of Object.entries(snap[grp] || {})) if (v && !data[grp][k]) { console.warn(`data.json ${grp}.${k} is blank: using the last good value`); data[grp][k] = v; }
+  }
+}
+if ((data.catalog || []).length) write(SNAP, JSON.stringify({ _about: 'Last good copy of the catalog, profile and social links. The site falls back to it if an admin publish arrives blank. Updated by the build.', catalog: data.catalog, profile: data.profile || {}, socials: data.socials || {} }, null, 2) + '\n');
 const DESC = fs.existsSync(path.join(ROOT, 'content/descriptions.json')) ? JSON.parse(read('content/descriptions.json')) : {};
 const seriesInfo = DESC.series || {};
 const bookDesc = DESC.books || {};

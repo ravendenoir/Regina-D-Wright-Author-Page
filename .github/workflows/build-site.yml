@@ -35,7 +35,7 @@ jobs:
             git fetch -q origin main
             git reset -q --hard origin/main
             node scripts/build-site.mjs
-            git add -A index.html books series reviews blog sitemap.xml robots.txt
+            git add -A index.html books series reviews blog sitemap.xml robots.txt content/site-snapshot.json
             if git diff --cached --quiet; then echo "No changes"; exit 0; fi
             git commit -q -m "Rebuild site pages from data.json"
             git push origin HEAD:main && exit 0

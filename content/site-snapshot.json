@@ -2,7 +2,7 @@
   "_about": "Last good copy of the catalog, profile and social links. The site falls back to it if an admin publish arrives blank. Updated by the build.",
   "catalog": [
     {
-      "id": "rdw-save-room",
+      "id": "mvidqa6pep7w",
       "title": "Save Room",
       "series": "The Marigold Brothers",
       "seriesOrder": 1,
@@ -10,11 +10,11 @@
       "amazonUrl": "https://www.amazon.com/dp/B0HJRQRB7B",
       "coverUrl": "https://reginadwright.com/images/save-room.jpg",
       "isTopSeller": true,
-      "isKuFave": false,
+      "isKuFave": true,
       "isComingSoon": false
     },
     {
-      "id": "rdw-made-from-scratch",
+      "id": "mvidqa6pnzou",
       "title": "Made From Scratch",
       "series": "The Marigold Brothers",
       "seriesOrder": 2,
@@ -23,10 +23,10 @@
       "coverUrl": "https://reginadwright.com/images/made-from-scratch.jpg",
       "isTopSeller": false,
       "isKuFave": false,
-      "isComingSoon": true
+      "isComingSoon": false
     },
     {
-      "id": "rdw-come-hungry",
+      "id": "mvidqa6pbl2j",
       "title": "Come Hungry",
       "series": "The Marigold Brothers",
       "seriesOrder": 3,
@@ -35,10 +35,10 @@
       "coverUrl": "https://reginadwright.com/images/come-hungry.jpg",
       "isTopSeller": false,
       "isKuFave": false,
-      "isComingSoon": true
+      "isComingSoon": false
     },
     {
-      "id": "rdw-second-helpings",
+      "id": "mvidqa6p13o2",
       "title": "Second Helpings",
       "series": "The Marigold Brothers",
       "seriesOrder": 4,
@@ -47,10 +47,10 @@
       "coverUrl": "https://reginadwright.com/images/second-helpings.jpg",
       "isTopSeller": false,
       "isKuFave": false,
-      "isComingSoon": true
+      "isComingSoon": false
     },
     {
-      "id": "rdw-the-long-game",
+      "id": "mvidqa6pfylp",
       "title": "The Long Game",
       "series": "The Tolliver Swifts",
       "seriesOrder": 1,
@@ -59,10 +59,10 @@
       "coverUrl": "https://reginadwright.com/images/the-long-game.jpg",
       "isTopSeller": false,
       "isKuFave": false,
-      "isComingSoon": true
+      "isComingSoon": false
     },
     {
-      "id": "rdw-caught-looking",
+      "id": "mvidqa6p2ya0",
       "title": "Caught Looking",
       "series": "The Tolliver Swifts",
       "seriesOrder": 2,
@@ -71,10 +71,10 @@
       "coverUrl": "https://reginadwright.com/images/caught-looking.jpg",
       "isTopSeller": false,
       "isKuFave": false,
-      "isComingSoon": true
+      "isComingSoon": false
     },
     {
-      "id": "rdw-home-field",
+      "id": "mvidqa6pgvt5",
       "title": "Home Field",
       "series": "The Tolliver Swifts",
       "seriesOrder": 3,
@@ -83,10 +83,10 @@
       "coverUrl": "https://reginadwright.com/images/home-field.jpg",
       "isTopSeller": false,
       "isKuFave": false,
-      "isComingSoon": true
+      "isComingSoon": false
     },
     {
-      "id": "rdw-safe-at-home",
+      "id": "mvidqa6pz0cc",
       "title": "Safe at Home",
       "series": "The Tolliver Swifts",
       "seriesOrder": 4,
@@ -95,10 +95,10 @@
       "coverUrl": "https://reginadwright.com/images/safe-at-home.jpg",
       "isTopSeller": false,
       "isKuFave": false,
-      "isComingSoon": true
+      "isComingSoon": false
     },
     {
-      "id": "rdw-hold-the-line",
+      "id": "mvidqa6prb2u",
       "title": "Hold The Line",
       "series": "The Men of Cauble Holler",
       "seriesOrder": 1,
@@ -107,7 +107,7 @@
       "coverUrl": "https://reginadwright.com/images/hold-the-line.jpg",
       "isTopSeller": false,
       "isKuFave": false,
-      "isComingSoon": true
+      "isComingSoon": false
     }
   ],
   "profile": {

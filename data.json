@@ -36,8 +36,22 @@
   "comingSoon": [],
   "authorSites": [],
   "events": [],
-  "topSellers": [],
-  "kuFavorites": [],
+  "topSellers": [
+    {
+      "id": "mvidqa6pep7w",
+      "title": "Save Room",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJRQRB7B",
+      "coverUrl": "https://reginadwright.com/images/save-room.jpg"
+    }
+  ],
+  "kuFavorites": [
+    {
+      "id": "mvidqa6pep7w",
+      "title": "Save Room",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJRQRB7B",
+      "coverUrl": "https://reginadwright.com/images/save-room.jpg"
+    }
+  ],
   "favoritesList": [],
   "tbrList": [],
   "leadMagnet": {
@@ -59,6 +73,115 @@
       "bookAmazonUrl": "https://www.amazon.com/Save-Room-Romance-Marigold-Brothers-ebook/dp/B0HJRQRB7B"
     }
   ],
-  "catalog": [],
+  "catalog": [
+    {
+      "id": "mvidqa6pep7w",
+      "title": "Save Room",
+      "series": "The Marigold Brothers",
+      "seriesOrder": 1,
+      "publishDate": "2026-10-02",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJRQRB7B",
+      "coverUrl": "https://reginadwright.com/images/save-room.jpg",
+      "isTopSeller": true,
+      "isKuFave": true,
+      "isComingSoon": false
+    },
+    {
+      "id": "mvidqa6pnzou",
+      "title": "Made From Scratch",
+      "series": "The Marigold Brothers",
+      "seriesOrder": 2,
+      "publishDate": "2026-11-06",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJSX8R2C",
+      "coverUrl": "https://reginadwright.com/images/made-from-scratch.jpg",
+      "isTopSeller": false,
+      "isKuFave": false,
+      "isComingSoon": false
+    },
+    {
+      "id": "mvidqa6pbl2j",
+      "title": "Come Hungry",
+      "series": "The Marigold Brothers",
+      "seriesOrder": 3,
+      "publishDate": "2026-12-04",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJT784MY",
+      "coverUrl": "https://reginadwright.com/images/come-hungry.jpg",
+      "isTopSeller": false,
+      "isKuFave": false,
+      "isComingSoon": false
+    },
+    {
+      "id": "mvidqa6p13o2",
+      "title": "Second Helpings",
+      "series": "The Marigold Brothers",
+      "seriesOrder": 4,
+      "publishDate": "2027-01-01",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJSPQBQH",
+      "coverUrl": "https://reginadwright.com/images/second-helpings.jpg",
+      "isTopSeller": false,
+      "isKuFave": false,
+      "isComingSoon": false
+    },
+    {
+      "id": "mvidqa6pfylp",
+      "title": "The Long Game",
+      "series": "The Tolliver Swifts",
+      "seriesOrder": 1,
+      "publishDate": "2027-02-05",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJY4C92C",
+      "coverUrl": "https://reginadwright.com/images/the-long-game.jpg",
+      "isTopSeller": false,
+      "isKuFave": false,
+      "isComingSoon": false
+    },
+    {
+      "id": "mvidqa6p2ya0",
+      "title": "Caught Looking",
+      "series": "The Tolliver Swifts",
+      "seriesOrder": 2,
+      "publishDate": "2027-03-05",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJYPKCBN",
+      "coverUrl": "https://reginadwright.com/images/caught-looking.jpg",
+      "isTopSeller": false,
+      "isKuFave": false,
+      "isComingSoon": false
+    },
+    {
+      "id": "mvidqa6pgvt5",
+      "title": "Home Field",
+      "series": "The Tolliver Swifts",
+      "seriesOrder": 3,
+      "publishDate": "2027-04-02",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJY8PG2P",
+      "coverUrl": "https://reginadwright.com/images/home-field.jpg",
+      "isTopSeller": false,
+      "isKuFave": false,
+      "isComingSoon": false
+    },
+    {
+      "id": "mvidqa6pz0cc",
+      "title": "Safe at Home",
+      "series": "The Tolliver Swifts",
+      "seriesOrder": 4,
+      "publishDate": "2027-05-07",
+      "amazonUrl": "https://www.amazon.com/dp/B0HJYTT4S5",
+      "coverUrl": "https://reginadwright.com/images/safe-at-home.jpg",
+      "isTopSeller": false,
+      "isKuFave": false,
+      "isComingSoon": false
+    },
+    {
+      "id": "mvidqa6prb2u",
+      "title": "Hold The Line",
+      "series": "The Men of Cauble Holler",
+      "seriesOrder": 1,
+      "publishDate": "2027-06-04",
+      "amazonUrl": "https://www.amazon.com/dp/B0HKQ3J838",
+      "coverUrl": "https://reginadwright.com/images/hold-the-line.jpg",
+      "isTopSeller": false,
+      "isKuFave": false,
+      "isComingSoon": false
+    }
+  ],
   "latestNewsletter": ""
 }

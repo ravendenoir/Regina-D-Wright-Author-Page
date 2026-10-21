@@ -15,6 +15,7 @@ const data = JSON.parse(read('data.json'));
 const DESC = fs.existsSync(path.join(ROOT, 'content/descriptions.json')) ? JSON.parse(read('content/descriptions.json')) : {};
 const seriesInfo = DESC.series || {};
 const bookDesc = DESC.books || {};
+import { md } from './md.mjs';
 const NEWSLETTER = read('scripts/newsletter-block.html');
 const PAGE_SCRIPT = read('scripts/page-script.html');
 const today = new Date().toISOString().slice(0, 10);
@@ -62,15 +63,24 @@ const seriesOf = (b) => seriesList.find((s) => s.slug === b.seriesSlug);
 const seriesLine = (b) => (b.seriesSlug ? `${b.series}${b.order ? ', Book ' + b.order : ''}` : 'Standalone');
 const statusPill = (b) => (b.released ? '<span class="pill now">Available now</span>' : `<span class="pill">Coming ${esc(short(b.date))}</span>`);
 
+// ---------- blog posts (written in Blog Desk, saved as content/posts/<slug>.json) ----------
+// A post goes live once its date arrives, so a future date schedules it (the daily build publishes it).
+const POSTS_DIR = path.join(ROOT, 'content/posts');
+const posts = (fs.existsSync(POSTS_DIR) ? fs.readdirSync(POSTS_DIR) : []).filter((f) => f.endsWith('.json')).map((f) => {
+  try { const p = JSON.parse(fs.readFileSync(path.join(POSTS_DIR, f), 'utf8')); return { ...p, slug: slugify(p.slug || f.replace(/\.json$/, '')), date: isoDate(p.date) || today }; } catch (e) { console.warn('Skipping bad post ' + f + ': ' + e.message); return null; }
+}).filter((p) => p && p.title && p.status !== 'draft' && p.date <= today)
+  .sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title))
+  .map((p) => ({ ...p, url: `/blog/${p.slug}/`, cover: local(p.cover), excerpt: p.excerpt || snippet(String(p.body || '').replace(/[#>*_\[\]()!-]/g, ' '), 160) }));
+
 const person = { '@type': 'Person', name: AUTHOR, url: SITE + '/', ...(amazon(socials.amazon) ? { sameAs: [socials.amazon] } : {}) };
 
 // ---------- layout ----------
-const NAV = [['/', 'Home', 'home'], ['/books/', 'Books', 'books'], ['/books/#series', 'Series', 'series'], ['/#coming-soon', 'Coming Soon', ''], ...((data.reviews || []).some((r) => r.screenshotBase64 || r.screenshotUrl) ? [['/#reviews', 'Reviews', '']] : []), ['/#about', 'About', ''], ['/#newsletter', 'Newsletter', '']];
+const NAV = [['/', 'Home', 'home'], ['/books/', 'Books', 'books'], ['/books/#series', 'Series', 'series'], ['/#coming-soon', 'Coming Soon', ''], ...((data.reviews || []).some((r) => r.screenshotBase64 || r.screenshotUrl) ? [['/#reviews', 'Reviews', '']] : []), ...(posts.length ? [['/blog/', 'Blog', 'blog']] : []), ['/#about', 'About', ''], ['/#newsletter', 'Newsletter', '']];
 const nav = (current) => `<nav aria-label="Main"><ul>${NAV.map(([h, l, k]) => `<li><a href="${h}"${k && k === current ? ' aria-current="page"' : ''}>${l}</a></li>`).join('')}</ul></nav>`;
 const SOCIAL_LABELS = { amazon: 'Amazon Author Page', goodreads: 'Goodreads', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', patreon: 'Patreon', discord: 'Discord' };
 const socialLinks = Object.keys(SOCIAL_LABELS).filter((k) => /^https?:\/\/[^/]+\/.+/.test(socials[k] || ''));
 
-const head = ({ title, description, canonical, image, jsonld = [] }) => `<!DOCTYPE html>
+const head = ({ title, description, canonical, image, jsonld = [], type = 'website' }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -78,14 +88,14 @@ const head = ({ title, description, canonical, image, jsonld = [] }) => `<!DOCTY
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${SITE}${canonical}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="${type}">
 <meta property="og:site_name" content="${AUTHOR}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${SITE}${canonical}">
 <meta property="og:image" content="${esc(abs(image || '/assets/banner.png'))}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/rdw-logo.png">
+<link rel="icon" href="/assets/rdw-logo.png">${posts.length ? `\n<link rel="alternate" type="application/rss+xml" title="Regina D. Wright Blog" href="${SITE}/blog/feed.xml">` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -95,7 +105,7 @@ ${jsonld.map((j) => `<script type="application/ld+json">${JSON.stringify({ '@con
 <body>
 `;
 const FOOTER = `<footer>
-  <div class="site-footer-nav"><a href="/">Home</a><a href="/books/">All Books</a><a href="/#newsletter">Newsletter</a>${amazon(socials.amazon) ? `<a href="${esc(socials.amazon)}" target="_blank" rel="noopener">Amazon</a>` : ''}</div>
+  <div class="site-footer-nav"><a href="/">Home</a><a href="/books/">All Books</a>${posts.length ? '<a href="/blog/">Blog</a>' : ''}<a href="/#newsletter">Newsletter</a>${amazon(socials.amazon) ? `<a href="${esc(socials.amazon)}" target="_blank" rel="noopener">Amazon</a>` : ''}</div>
   <p>
     &copy; <span id="yr"></span> Regina D. Wright &nbsp;|&nbsp; All rights reserved<br>
     <span style="font-size:0.72rem;">This site contains affiliate links. As an Amazon Associate I earn from qualifying purchases.</span>
@@ -186,6 +196,19 @@ ${reviews.length > 1 ? `      <div class="rv-nav"><button type="button" class="r
 </section>
 <script>(function(){var w=document.querySelector('.rv');if(!w)return;var s=w.querySelectorAll('.rv-slide'),c=w.querySelector('.rv-count'),i=0;w.querySelectorAll('.rv-arr').forEach(function(b){b.addEventListener('click',function(){s[i].hidden=true;i=(i+Number(b.dataset.step)+s.length)%s.length;s[i].hidden=false;if(c)c.textContent=(i+1)+' of '+s.length;});});})();</script>` : '';
 
+const postCard = (p) => `<a class="post-card" href="${p.url}">${p.cover ? `<span class="pc-img"><img src="${esc(p.cover)}" alt="" loading="lazy"></span>` : ''}<span class="pc-body"><span class="pc-date">${esc(fmt(p.date))}</span><span class="pc-title">${esc(p.title)}</span><span class="pc-ex">${esc(p.excerpt)}</span><span class="link-more">Read more &rarr;</span></span></a>`;
+const blogHomeHtml = posts.length ? `<section id="blog" class="blog-home">
+  <div class="section-inner">
+    <div style="text-align:center">
+      <p class="section-label">From the Blog</p>
+      <h2 class="section-title">Notes from Regina</h2>
+      <div class="section-divider" style="margin-left:auto;margin-right:auto"></div>
+    </div>
+    <div class="post-list">${posts.slice(0, 3).map(postCard).join('')}</div>
+    ${posts.length > 3 ? '<p style="text-align:center;margin-top:32px"><a class="btn-line" href="/blog/">All Posts</a></p>' : ''}
+  </div>
+</section>` : '';
+
 const aboutHtml = `<section id="about">
   <div class="section-inner">
     <div class="about-grid">
@@ -245,6 +268,8 @@ ${comingHtml}
 ${seriesHtml}
 
 ${reviewsHtml}
+
+${blogHomeHtml}
 
 ${aboutHtml}
 
@@ -338,6 +363,45 @@ for (const b of books) {
 </main>`));
 }
 
+// ---------- /blog/ ----------
+fs.rmSync(path.join(ROOT, 'blog'), { recursive: true, force: true });
+if (posts.length) {
+  write('blog/index.html', inner({
+    title: 'Blog | Regina D. Wright',
+    description: 'News, release updates and behind-the-book notes from Regina D. Wright, author of sweet, closed-door BWWM small-town romance.',
+    canonical: '/blog/', image: posts.find((p) => p.cover)?.cover,
+    jsonld: [{ '@type': 'Blog', name: 'Regina D. Wright Blog', url: SITE + '/blog/', author: person,
+      blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.title, url: SITE + p.url, datePublished: p.date })) }]
+  }, 'blog', `<main class="page">
+  <p class="crumbs"><a href="/">Home</a> / Blog</p>
+  <h1>From the Blog</h1>
+  <p class="lede">News, release updates and behind-the-book notes from Marigold, Tolliver and Cauble Holler.</p>
+  <div class="post-list">${posts.map(postCard).join('')}</div>
+</main>`));
+  for (const p of posts) {
+    const book = p.bookId ? books.find((b) => b.id === p.bookId) : null;
+    const more = posts.filter((x) => x !== p).slice(0, 2);
+    write(`blog/${p.slug}/index.html`, inner({
+      title: `${p.title} | Regina D. Wright`, description: snippet(p.excerpt), canonical: p.url, image: p.cover || book?.cover, type: 'article',
+      jsonld: [{ '@type': 'BlogPosting', headline: p.title, url: SITE + p.url, datePublished: p.date, ...(p.updated ? { dateModified: isoDate(p.updated) } : {}),
+        description: snippet(p.excerpt, 300), author: person, publisher: person, ...(p.cover ? { image: abs(p.cover) } : {}), mainEntityOfPage: SITE + p.url }]
+    }, 'blog', `<main class="page post">
+  <p class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / ${esc(p.title)}</p>
+  <article>
+    <p class="post-date"><time datetime="${p.date}">${esc(fmt(p.date))}</time></p>
+    <h1>${esc(p.title)}</h1>
+    ${p.cover ? `<img class="post-cover" src="${esc(p.cover)}" alt="${esc(p.coverAlt || p.title)}">` : ''}
+    <div class="post-body">${md(p.body)}</div>
+  </article>
+  ${book ? `<aside class="post-book"><a href="${book.url}"><img src="${esc(thumb(book.cover))}" alt="${esc(book.title)} by Regina D. Wright, book cover" width="400" height="640"></a><div><p class="section-label">The Book</p><h2><a href="${book.url}">${esc(book.title)}</a></h2><p class="series-line">${esc(seriesLine(book))} · ${book.released ? 'Available now' : 'Coming ' + esc(fmt(book.date))}</p>${amazon(book.amazonUrl) ? `<a class="btn-solid" href="${esc(book.amazonUrl)}" target="_blank" rel="noopener">${book.released ? 'Read on Amazon' : 'Pre-Order on Amazon'}</a>` : ''}</div></aside>` : ''}
+  <p class="post-news">Want the next update in your inbox? <a href="/#newsletter">Join the newsletter &rarr;</a></p>
+  ${more.length ? `<section class="post-more"><h2>More from the Blog</h2><div class="post-list">${more.map(postCard).join('')}</div></section>` : ''}
+</main>`));
+  }
+  const x = (t) => esc(t).replace(/&#39;/g, "'");
+  write('blog/feed.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>Regina D. Wright Blog</title><link>${SITE}/blog/</link><description>News and behind-the-book notes from Regina D. Wright</description>\n${posts.slice(0, 20).map((p) => `<item><title>${x(p.title)}</title><link>${SITE}${p.url}</link><guid>${SITE}${p.url}</guid><pubDate>${new Date(p.date + 'T12:00:00Z').toUTCString()}</pubDate><description>${x(p.excerpt)}</description></item>`).join('\n')}\n</channel></rss>\n`);
+}
+
 // ---------- clean up pages for removed books/series ----------
 for (const dir of ['books', 'series']) {
   const keep = new Set(dir === 'books' ? books.map((b) => b.slug) : seriesList.map((s) => s.slug));
@@ -347,7 +411,7 @@ for (const dir of ['books', 'series']) {
 }
 
 // ---------- sitemap + robots ----------
-const urls = ['/', '/books/', ...seriesList.map((s) => s.url), ...books.map((b) => b.url)];
+const urls = ['/', '/books/', ...seriesList.map((s) => s.url), ...books.map((b) => b.url), ...(posts.length ? ['/blog/', ...posts.map((p) => p.url)] : [])];
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${SITE}${u}</loc></url>`).join('\n')}\n</urlset>\n`);
 write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
-console.log(`Built homepage, ${books.length} book pages, ${seriesList.length} series pages, /books/, sitemap (${urls.length} URLs).`);
+console.log(`Built homepage, ${books.length} book pages, ${seriesList.length} series pages, /books/, ${posts.length} blog posts, sitemap (${urls.length} URLs).`);

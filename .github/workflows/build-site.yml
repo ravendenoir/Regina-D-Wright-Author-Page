@@ -31,7 +31,7 @@ jobs:
         run: |
           git config user.name "Regina Site Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html books series sitemap.xml robots.txt
+          git add -A index.html books series reviews sitemap.xml robots.txt
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git commit -m "Rebuild site pages from data.json"
           for i in 1 2 3; do

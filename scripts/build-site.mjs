@@ -65,7 +65,7 @@ const statusPill = (b) => (b.released ? '<span class="pill now">Available now</s
 const person = { '@type': 'Person', name: AUTHOR, url: SITE + '/', ...(amazon(socials.amazon) ? { sameAs: [socials.amazon] } : {}) };
 
 // ---------- layout ----------
-const NAV = [['/', 'Home', 'home'], ['/books/', 'Books', 'books'], ['/books/#series', 'Series', 'series'], ['/#coming-soon', 'Coming Soon', ''], ['/#about', 'About', ''], ['/#newsletter', 'Newsletter', '']];
+const NAV = [['/', 'Home', 'home'], ['/books/', 'Books', 'books'], ['/books/#series', 'Series', 'series'], ['/#coming-soon', 'Coming Soon', ''], ...((data.reviews || []).some((r) => r.screenshotBase64 || r.screenshotUrl) ? [['/#reviews', 'Reviews', '']] : []), ['/#about', 'About', ''], ['/#newsletter', 'Newsletter', '']];
 const nav = (current) => `<nav aria-label="Main"><ul>${NAV.map(([h, l, k]) => `<li><a href="${h}"${k && k === current ? ' aria-current="page"' : ''}>${l}</a></li>`).join('')}</ul></nav>`;
 const SOCIAL_LABELS = { amazon: 'Amazon Author Page', goodreads: 'Goodreads', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', patreon: 'Patreon', discord: 'Discord' };
 const socialLinks = Object.keys(SOCIAL_LABELS).filter((k) => /^https?:\/\/[^/]+\/.+/.test(socials[k] || ''));
@@ -103,7 +103,8 @@ const FOOTER = `<footer>
 </footer>
 `;
 const TOPBAR = `<header><div class="header-inner" style="padding:22px 24px 20px"><a href="/" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#fff;text-decoration:none">Regina D. Wright</a><p class="tagline" style="margin:4px 0 0;font-size:0.95rem">Stories of family, love, and coming home</p></div></header>`;
-const inner = (opts, current, body) => head(opts) + TOPBAR + '\n' + nav(current) + '\n' + body + '\n' + FOOTER + `<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>\n</body>\n</html>\n`;
+const COUNTDOWN = `<script>(function(){var els=document.querySelectorAll('.cd[data-release]');if(!els.length)return;function p(n){return n<10?'0'+n:''+n}function u(n,l){return '<span class="cd-u"><b>'+n+'</b><i>'+l+'</i></span>'}function tick(){els.forEach(function(el){var d=new Date(el.dataset.release).getTime()-Date.now();if(d<=0){el.innerHTML='<span class="cd-now">Available now!</span>';return}el.innerHTML=u(Math.floor(d/864e5),'days')+u(p(Math.floor(d%864e5/36e5)),'hrs')+u(p(Math.floor(d%36e5/6e4)),'min')+u(p(Math.floor(d%6e4/1e3)),'sec')})}tick();setInterval(tick,1000)})();</script>`;
+const inner = (opts, current, body) => head(opts) + TOPBAR + '\n' + nav(current) + '\n' + body + '\n' + FOOTER + COUNTDOWN + `<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>\n</body>\n</html>\n`;
 
 const card = (b, withNum = false) => `<a class="card" href="${b.url}"><span class="cv"><img src="${esc(thumb(b.cover))}" alt="${esc(b.title)} by Regina D. Wright, book cover" loading="lazy" width="400" height="640">${withNum && b.order ? `<span class="num" aria-label="Book ${b.order}">${b.order}</span>` : ''}</span>${statusPill(b)}<span class="t">${esc(b.title)}</span><span class="m">${esc(withNum ? (b.released ? 'Published ' + short(b.date) : '') : seriesLine(b))}</span></a>`;
 
@@ -135,7 +136,7 @@ const comingHtml = comingSoon.length ? `<section id="coming-soon">
     <p class="section-label">On the Way</p>
     <h2 class="section-title">Coming Soon</h2>
     <div class="section-divider" style="margin-left:auto;margin-right:auto"></div>
-    <div class="cards">${comingSoon.map((b) => card(b)).join('')}</div>
+    <div class="cards">${comingSoon.map((b) => card(b).replace('</a>', `<span class="cd" data-release="${b.date}T00:00:00"></span></a>`)).join('')}</div>
     <p style="margin-top:32px"><a class="link-more" href="/books/">See every book and release date &rarr;</a></p>
   </div>
 </section>` : '<div id="coming-soon"></div>';
@@ -159,6 +160,31 @@ ${seriesList.map((s) => `      <a class="series-card" href="${s.url}">
     <p style="text-align:center;margin-top:36px"><a class="btn-line" href="/books/">Browse All Books</a></p>
   </div>
 </section>`;
+
+// ---------- reader reviews (screenshots uploaded in Regina's admin) ----------
+fs.rmSync(path.join(ROOT, 'reviews'), { recursive: true, force: true });
+const reviews = (data.reviews || []).map((r, i) => {
+  let img = r.screenshotUrl || '';
+  const m = /^data:image\/(png|jpe?g|webp|gif);base64,(.+)$/i.exec(r.screenshotBase64 || '');
+  if (m) { const ext = m[1].toLowerCase().replace('jpeg', 'jpg'); const name = `reviews/${slugify(r.id || 'review-' + i)}.${ext}`; write(name, Buffer.from(m[2], 'base64')); img = '/' + name; }
+  const book = books.find((b) => b.id === r.bookId) || books.find((b) => r.bookTitle && b.title === r.bookTitle);
+  return { img, book, title: (book && book.title) || r.bookTitle || '', buy: amazon(r.bookAmazonUrl) || (book && amazon(book.amazonUrl)) || '' };
+}).filter((r) => r.img);
+const reviewsHtml = reviews.length ? `<section id="reviews" class="reviews">
+  <div class="section-inner" style="text-align:center">
+    <p class="section-label">What Readers Are Saying</p>
+    <h2 class="section-title">Reader Reviews</h2>
+    <div class="section-divider" style="margin-left:auto;margin-right:auto"></div>
+    <div class="rv" data-count="${reviews.length}">
+${reviews.map((r, i) => `      <figure class="rv-slide"${i ? ' hidden' : ''}>
+        <img src="${esc(r.img)}" alt="Reader review${r.title ? ' of ' + esc(r.title) : ''}" loading="lazy">
+        ${r.title || r.buy ? `<figcaption>${r.title ? `<span class="rv-book">${r.book ? `<a href="${r.book.url}">${esc(r.title)}</a>` : esc(r.title)}</span>` : ''}${r.buy ? `<a class="btn-solid" href="${esc(r.buy)}" target="_blank" rel="noopener">Read on Amazon</a>` : ''}</figcaption>` : ''}
+      </figure>`).join('\n')}
+${reviews.length > 1 ? `      <div class="rv-nav"><button type="button" class="rv-arr" data-step="-1" aria-label="Previous review">&lsaquo;</button><span class="rv-count" aria-live="polite">1 of ${reviews.length}</span><button type="button" class="rv-arr" data-step="1" aria-label="Next review">&rsaquo;</button></div>` : ''}
+    </div>
+  </div>
+</section>
+<script>(function(){var w=document.querySelector('.rv');if(!w)return;var s=w.querySelectorAll('.rv-slide'),c=w.querySelector('.rv-count'),i=0;w.querySelectorAll('.rv-arr').forEach(function(b){b.addEventListener('click',function(){s[i].hidden=true;i=(i+Number(b.dataset.step)+s.length)%s.length;s[i].hidden=false;if(c)c.textContent=(i+1)+' of '+s.length;});});})();</script>` : '';
 
 const aboutHtml = `<section id="about">
   <div class="section-inner">
@@ -218,6 +244,8 @@ ${comingHtml}
 
 ${seriesHtml}
 
+${reviewsHtml}
+
 ${aboutHtml}
 
 ${NEWSLETTER}
@@ -225,6 +253,7 @@ ${connectHtml}
 
 ${FOOTER}
 ${PAGE_SCRIPT}
+${COUNTDOWN}
 
 </body>
 </html>
@@ -293,6 +322,7 @@ for (const b of books) {
     <img class="cover" src="${esc(b.cover)}" alt="${esc(b.title)} by Regina D. Wright, book cover" width="640" height="1024">
     <div class="book-info">
       ${statusPill(b)}
+      ${b.released ? '' : `<div class="cd cd-lg" data-release="${b.date}T00:00:00"></div>`}
       <h1 style="margin-top:12px">${esc(b.title)}</h1>
       <p class="series-line">by Regina D. Wright${s ? ` · <a href="${s.url}">${esc(s.name)}${b.order ? ', Book ' + b.order : ''}</a>` : ''}</p>
       <span class="closed-door">Sweet, closed-door romance</span>

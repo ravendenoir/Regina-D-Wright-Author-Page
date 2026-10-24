@@ -1,0 +1,10 @@
+# Netlify settings for reginadwright.com.
+# Only one rule here; everything else (publish folder, functions) stays as configured in the Netlify dashboard.
+#
+# Every admin publish or Blog Desk post is followed seconds later by an automatic rebuild commit
+# (GitHub Action "Build Regina's site") that regenerates the pages. Publishing the first commit is
+# wasted: it costs a production deploy and shows nothing new. So Netlify only publishes a commit when
+# something visitors actually load has changed since the last published version.
+# (Exit code 0 = skip this deploy, 1 = publish.)
+[build]
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- index.html books series blog reviews sitemap.xml robots.txt assets netlify netlify.toml"

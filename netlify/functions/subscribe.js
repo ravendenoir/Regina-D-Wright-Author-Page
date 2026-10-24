@@ -63,11 +63,11 @@ async function subscribe(event) {
 
   console.log('Mailchimp upsert success for', email, '— status:', data.status);
 
-  // Tag the subscriber with "RDW" and "Regina" (the tag Askli's Regina form uses)
+  // Tag the subscriber "Regina" only (the same tag Askli's Regina form uses)
   const tagRes = await fetch(`${baseUrl}/members/${emailHash}/tags`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': authHeader },
-    body: JSON.stringify({ tags: [{ name: 'RDW', status: 'active' }, { name: 'Regina', status: 'active' }] })
+    body: JSON.stringify({ tags: [{ name: 'Regina', status: 'active' }] })
   });
 
   if (!tagRes.ok) {

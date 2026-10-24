@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-exports.handler = async (event) => {
+async function subscribe(event) {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
@@ -64,4 +64,20 @@ exports.handler = async (event) => {
   }
 
   return { statusCode: 200, body: JSON.stringify({ success: true }) };
+}
+
+// reginadwright.com is hosted on GitHub Pages, so the signup form calls this function across sites.
+// Allow only Regina's own pages to call it, and answer the browser's permission check (OPTIONS).
+const ALLOWED = ['https://reginadwright.com', 'https://www.reginadwright.com', 'https://regina-d-wright.netlify.app'];
+exports.handler = async (event) => {
+  const origin = (event.headers && (event.headers.origin || event.headers.Origin)) || '';
+  const cors = {
+    'Access-Control-Allow-Origin': ALLOWED.includes(origin) ? origin : ALLOWED[0],
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Vary': 'Origin'
+  };
+  if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers: cors, body: '' };
+  const res = await subscribe(event);
+  return { ...res, headers: { ...(res.headers || {}), ...cors } };
 };
